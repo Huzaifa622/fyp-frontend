@@ -18,7 +18,6 @@ export const metadata: Metadata = {
   title: "DermaAI - AI-Powered Skin Disease Diagnosis",
   description:
     "Advanced AI-powered skin disease diagnosis and appointment booking system. Get instant analysis and detailed patient reports.",
-  generator: "v0.app",
   icons: {
     icon: [
       {
