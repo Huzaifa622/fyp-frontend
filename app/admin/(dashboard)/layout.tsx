@@ -60,7 +60,7 @@ export default function AdminLayout({
           <button
             onClick={() => {
               localStorage.removeItem("accessToken");
-              window.location.href = "/login?role=admin";
+              window.location.href = "/login";
             }}
             className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
           >

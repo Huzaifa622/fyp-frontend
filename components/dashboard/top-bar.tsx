@@ -25,15 +25,7 @@ export function TopBar({ user, isLoading }: TopBarProps) {
   const [logout] = useLogoutMutation();
   const handleLogout = async () => {
     await logout();
-    localStorage.removeItem("accessToken");
-    const pathname = window.location.pathname;
-    let redirectPath = "/login";
-    if (pathname.includes("/doctor")) {
-      redirectPath = "/doctor/login";
-    } else if (pathname.includes("/patient")) {
-      redirectPath = "/patient/login";
-    }
-    router.push(redirectPath);
+    router.push("/login");
   };
 
   return (
