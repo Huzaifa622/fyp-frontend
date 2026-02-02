@@ -11,10 +11,10 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
 
           <Link href="/">
-          <Image src={"/images/logo.png"} alt="Logo" width={100} height={100} />
+          <Image src={"/images/logo.png"} alt="Logo" width={120} height={120} />
        </Link>
 
         <div className="hidden md:flex items-center gap-8">

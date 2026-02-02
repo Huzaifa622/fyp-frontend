@@ -30,7 +30,7 @@ export default function DoctorDashboard() {
             </div>
             <div>
               <p className="text-sm font-medium text-muted-foreground">Total Patients</p>
-              <p className="text-2xl font-bold text-foreground">0</p>
+              <p className="text-2xl font-bold text-foreground">7</p>
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@ export default function DoctorDashboard() {
             </div>
             <div>
               <p className="text-sm font-medium text-muted-foreground">Available Slots</p>
-              <p className="text-2xl font-bold text-foreground">0</p>
+              <p className="text-2xl font-bold text-foreground">1</p>
             </div>
           </div>
         </div>

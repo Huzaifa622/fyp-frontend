@@ -18,7 +18,7 @@ export default function PatientDashboard() {
             </div>
             <div>
               <p className="text-sm font-medium text-muted-foreground">Upcoming Appointments</p>
-              <p className="text-2xl font-bold text-foreground">0</p>
+              <p className="text-2xl font-bold text-foreground">10</p>
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@ export default function PatientDashboard() {
             </div>
             <div>
               <p className="text-sm font-medium text-muted-foreground">AI Reports</p>
-              <p className="text-2xl font-bold text-foreground">0</p>
+              <p className="text-2xl font-bold text-foreground">1</p>
             </div>
           </div>
         </div>

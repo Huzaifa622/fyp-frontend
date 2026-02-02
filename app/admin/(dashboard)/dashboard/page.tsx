@@ -18,7 +18,7 @@ export default function AdminDashboard() {
             </div>
             <div>
               <p className="text-sm font-medium text-muted-foreground">Pending Approvals</p>
-              <p className="text-2xl font-bold text-foreground">0</p>
+              <p className="text-2xl font-bold text-foreground">2</p>
             </div>
           </div>
         </div>
@@ -30,7 +30,7 @@ export default function AdminDashboard() {
             </div>
             <div>
               <p className="text-sm font-medium text-muted-foreground">Verified Doctors</p>
-              <p className="text-2xl font-bold text-foreground">0</p>
+              <p className="text-2xl font-bold text-foreground">4</p>
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@ export default function AdminDashboard() {
             </div>
             <div>
               <p className="text-sm font-medium text-muted-foreground">Total Users</p>
-              <p className="text-2xl font-bold text-foreground">0</p>
+              <p className="text-2xl font-bold text-foreground">6</p>
             </div>
           </div>
         </div>
