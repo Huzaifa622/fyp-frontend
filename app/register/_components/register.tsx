@@ -73,7 +73,7 @@ const RegisterForm = () => {
       {/* Left Image */}
       <div className="hidden lg:flex relative items-center justify-center bg-gradient-to-br from-primary/80 to-primary text-primary-foreground">
         <img
-          src="https://images.unsplash.com/photo-1580281658629-4f5a7c9c7f1d"
+          src="/images/health.png"
           alt="Healthcare"
           className="absolute inset-0 h-full w-full object-cover opacity-20"
         />
