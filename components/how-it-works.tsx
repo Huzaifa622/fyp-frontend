@@ -72,54 +72,7 @@ export function HowItWorks() {
         </div>
 
         {/* Demo Preview */}
-        <div className="mt-20 mx-auto max-w-4xl">
-          <div className="rounded-2xl border border-border bg-card p-2">
-            <div className="rounded-xl bg-secondary/50 p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="flex gap-1.5">
-                  <div className="h-3 w-3 rounded-full bg-destructive/60" />
-                  <div className="h-3 w-3 rounded-full bg-yellow-500/60" />
-                  <div className="h-3 w-3 rounded-full bg-green-500/60" />
-                </div>
-                <div className="flex-1 h-6 rounded bg-muted/50" />
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div className="aspect-square rounded-lg bg-muted/30 flex items-center justify-center border-2 border-dashed border-border">
-                    <div className="text-center">
-                      <Upload className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-                      <p className="text-sm text-muted-foreground">Upload skin image</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="p-4 rounded-lg bg-muted/30 border border-border">
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                      <span className="text-xs text-accent font-medium">AI Analysis Complete</span>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="h-3 rounded bg-muted/50 w-3/4" />
-                      <div className="h-3 rounded bg-muted/50 w-1/2" />
-                      <div className="h-3 rounded bg-muted/50 w-2/3" />
-                    </div>
-                    <div className="mt-4 pt-4 border-t border-border">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Confidence</span>
-                        <span className="text-foreground font-medium">98.5%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="h-10 rounded-lg bg-foreground/10 flex items-center justify-center">
-                    <span className="text-sm text-foreground">Generate Full Report</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+     
       </div>
     </section>
   );

@@ -27,12 +27,12 @@ export const baseQueryWithReauth: BaseQueryFn<
     const pathname = window.location.pathname;
 
     // Handle 401 Unauthorized
-    if (result.error.status === 401) {
+    if (result.error.status === 401 &&  !pathname.includes("/login")) {
       let redirectPath = "/login";
       if (pathname.includes("/doctor")) {
-        redirectPath = "/doctor/login";
+        redirectPath = "/login";
       } else if (pathname.includes("/patient")) {
-        redirectPath = "/patient/login";
+        redirectPath = "/login";
       }
       localStorage.removeItem("accessToken");
       window.location.href = redirectPath;

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useLoginMutation } from "@/services/auth";
 import { Loader2, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -62,7 +63,7 @@ export const LoginForm = () => {
         router.push(`/verify-email?role=${errorRole}&email=${data.email}`);
         return;
       }
-
+// toast.error(err?.data?.message || "Login failed. Please check your credentials.");
       setError(err?.data?.message || "Login failed. Please check your credentials.");
     }
   };

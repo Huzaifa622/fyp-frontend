@@ -21,13 +21,8 @@ import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
+
 enum AppointmentStatus {
   PENDING = "pending",
   CONFIRMED = "confirmed",
@@ -171,7 +166,7 @@ export default function DoctorAppointments() {
                     </div>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Phone className="h-3.5 w-3.5" />
-                      <span>Audio/Video</span>
+                      <span>Onsite</span>
                     </div>
                   </div>
 
