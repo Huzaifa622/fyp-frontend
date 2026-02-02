@@ -162,6 +162,10 @@ export default function DoctorAppointments() {
                         {format(
                           new Date(appointment.slot.startTime),
                           "hh:mm a",
+                        )} -{" "}
+                        {format(
+                          new Date(appointment.slot.endTime),
+                          "hh:mm a",
                         )}
                       </span>
                     </div>
@@ -182,9 +186,9 @@ export default function DoctorAppointments() {
                         {isCompleting ? (
                           <Loader2 className="h-4 w-4 animate-spin mr-2" />
                         ) : null}
-                        Start Consultation
+                        Mark Completed
                       </Button>
-                      <DropdownMenu>
+                      {/* <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="icon-sm">
                             <MoreVertical className="h-4 w-4" />
@@ -200,7 +204,7 @@ export default function DoctorAppointments() {
                             Cancel Appointment
                           </DropdownMenuItem>
                         </DropdownMenuContent>
-                      </DropdownMenu>
+                      </DropdownMenu> */}
                     </div>
                   )}
                 </div>

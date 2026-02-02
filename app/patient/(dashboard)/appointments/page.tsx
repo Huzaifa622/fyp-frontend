@@ -25,14 +25,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
+
 enum AppointmentStatus {
   PENDING = "pending",
   CONFIRMED = "confirmed",
   COMPLETED = "completed",
   CANCELLED = "cancelled",
 }
-
 
 export default function PatientAppointments() {
   const {
@@ -46,10 +46,12 @@ export default function PatientAppointments() {
   const handleCancel = async (id: number) => {
     if (confirm("Are you sure you want to cancel this appointment?")) {
       try {
-        await cancelAppointment(id).unwrap();
+        const res = await cancelAppointment(id).unwrap();
+        console.log(res);
         toast.success("Appointment cancelled successfully");
         refetch();
       } catch (err: any) {
+        console.log(err);
         toast.error(err?.data?.message || "Failed to cancel appointment");
       }
     }
@@ -160,26 +162,18 @@ export default function PatientAppointments() {
 
                   {appointment.status === AppointmentStatus.CONFIRMED && (
                     <div className="flex items-center justify-between pt-4 gap-3">
-                      <Button className="flex-1" size="sm">
+                      {/* <Button className="flex-1" size="sm">
                         Join Call
+                      </Button> */}
+
+                      <Button
+                        className="text-destructive focus:text-destructive"
+                        onClick={() => handleCancel(appointment.id)}
+                        disabled={isCancelling}
+                      >
+                        <XCircle className="h-4 w-4 mr-2" />
+                        Cancel Appointment
                       </Button>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon-sm">
-                            <MoreVertical className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem
-                            className="text-destructive focus:text-destructive"
-                            onClick={() => handleCancel(appointment.id)}
-                            disabled={isCancelling}
-                          >
-                            <XCircle className="h-4 w-4 mr-2" />
-                            Cancel Appointment
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
                     </div>
                   )}
                 </div>

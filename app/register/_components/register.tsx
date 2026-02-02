@@ -1,161 +1,225 @@
-"use client"
+"use client";
 
-import React, { Suspense } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
-import { useSearchParams, useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { useRegisterMutation } from '@/services/auth'
-import { Loader2 } from 'lucide-react'
+import React, { Suspense } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useSearchParams, useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { useRegisterMutation } from "@/services/auth";
+import { Loader2, Eye, EyeOff, Check } from "lucide-react";
 
-// Define Zod Schema
-const registerSchema = z.object({
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-  confirmPassword: z.string().min(6, 'Confirm password must be at least 6 characters'),
-  role: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-})
+// ---------------- Schema ----------------
+const registerSchema = z
+  .object({
+    firstName: z.string().min(1, "First name is required"),
+    lastName: z.string().min(1, "Last name is required"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+    confirmPassword: z.string().min(6, "Confirm password must be at least 6 characters"),
+    role: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
-type RegisterFormValues = z.infer<typeof registerSchema>
+type RegisterFormValues = z.infer<typeof registerSchema>;
 
+// ---------------- Component ----------------
 const RegisterForm = () => {
-  const searchParams = useSearchParams()
-  const role = searchParams.get('role')! || 'admin'
+  const searchParams = useSearchParams();
+  const role = searchParams.get("role") || "patient";
+  const router = useRouter();
+
+  const [registerUser, { isLoading }] = useRegisterMutation();
+  const [error, setError] = React.useState<string | null>(null);
+
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+  const [agreed, setAgreed] = React.useState(false);
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      role: role,
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      role,
     },
-  })
-
-  const router = useRouter()
-  const [registerUser, { isLoading }] = useRegisterMutation({})
-  const [error, setError] = React.useState<string | null>(null)
+  });
 
   const onSubmit = async (data: RegisterFormValues) => {
-    setError(null)
+    setError(null);
     try {
-      const response = await registerUser(data).unwrap()
-      console.log('Register Success:', response)
-      // Redirect to Verify Email page
-      router.push(`/verify-email?role=${data.role}&email=${data.email}`)
+      await registerUser(data).unwrap();
+      router.push(`/verify-email?role=${data.role}&email=${data.email}`);
     } catch (err: any) {
-      console.error('Register Error:', err)
-      setError(err?.data?.message || 'Registration failed. Please try again.')
+      setError(err?.data?.message || "Registration failed. Please try again.");
     }
-  }
+  };
 
+  const inputClass =
+    "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
 
   return (
-    <div className="w-full max-w-md p-8 space-y-6 bg-card text-card-foreground rounded-xl shadow-lg border border-border">
-      <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold tracking-tighter text-foreground">Create an Account</h1>
-        <p className="text-muted-foreground">Enter your information to get started as a <span className="font-semibold text-primary">{role || 'admin'}</span></p>
+    <div className="min-h-screen grid lg:grid-cols-2 bg-background">
+      {/* Left Image */}
+      <div className="hidden lg:flex relative items-center justify-center bg-gradient-to-br from-primary/80 to-primary text-primary-foreground">
+        <img
+          src="https://images.unsplash.com/photo-1580281658629-4f5a7c9c7f1d"
+          alt="Healthcare"
+          className="absolute inset-0 h-full w-full object-cover opacity-20"
+        />
+        <div className="relative z-10 max-w-md text-center space-y-4 px-6">
+          <h2 className="text-4xl font-bold">Join Our Platform</h2>
+          <p className="text-primary-foreground/80">
+            Register as a <span className="font-semibold capitalize">{role}</span>
+          </p>
+        </div>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        {error && (
-          <div className="p-3 text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-md">
-            {error}
+      {/* Right Form */}
+      <div className="flex items-center justify-center px-4">
+        <div className="w-full max-w-md p-8 space-y-6 bg-card border border-border rounded-xl shadow-lg">
+          <div className="text-center space-y-2">
+            <h1 className="text-3xl font-bold">Create an Account</h1>
+            <p className="text-muted-foreground">
+              Get started as a{" "}
+              <span className="text-primary font-semibold capitalize">{role}</span>
+            </p>
           </div>
-        )}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <label htmlFor="firstName" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">First Name</label>
-            <input
-              id="firstName"
-              {...register('firstName')}
-              className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-background ${errors.firstName ? 'border-destructive focus-visible:ring-destructive' : 'border-input focus-visible:ring-ring'}`}
-              placeholder="John"
-            />
-            {errors.firstName && <p className="text-xs text-destructive">{errors.firstName.message}</p>}
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="lastName" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Last Name</label>
-            <input
-              id="lastName"
-              {...register('lastName')}
-              className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-background ${errors.lastName ? 'border-destructive focus-visible:ring-destructive' : 'border-input focus-visible:ring-ring'}`}
-              placeholder="Doe"
-            />
-            {errors.lastName && <p className="text-xs text-destructive">{errors.lastName.message}</p>}
-          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {error && (
+              <div className="p-3 text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-md">
+                {error}
+              </div>
+            )}
+
+            {/* Name */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <input {...register("firstName")} placeholder="First name" className={inputClass} />
+                {errors.firstName && (
+                  <p className="text-xs text-destructive mt-1">
+                    {errors.firstName.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <input {...register("lastName")} placeholder="Last name" className={inputClass} />
+                {errors.lastName && (
+                  <p className="text-xs text-destructive mt-1">
+                    {errors.lastName.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Email */}
+            <div>
+              <input {...register("email")} type="email" placeholder="Email address" className={inputClass} />
+              {errors.email && (
+                <p className="text-xs text-destructive mt-1">{errors.email.message}</p>
+              )}
+            </div>
+
+            {/* Password */}
+            <div>
+              <div className="relative">
+                <input
+                  {...register("password")}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  className={`${inputClass} pr-10`}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+              {errors.password && (
+                <p className="text-xs text-destructive mt-1">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+
+            {/* Confirm Password */}
+            <div>
+              <div className="relative">
+                <input
+                  {...register("confirmPassword")}
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm password"
+                  className={`${inputClass} pr-10`}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+              {errors.confirmPassword && (
+                <p className="text-xs text-destructive mt-1">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
+            </div>
+
+            {/* Agreement */}
+            <label className="flex items-start gap-3 text-sm text-muted-foreground cursor-pointer">
+              <span
+                className={`mt-1 flex h-4 w-4 items-center justify-center rounded border ${
+                  agreed ? "bg-primary border-primary text-primary-foreground" : "border-input"
+                }`}
+                onClick={() => setAgreed(!agreed)}
+              >
+                {agreed && <Check size={12} />}
+              </span>
+              <span>
+                I agree to the{" "}
+                <span className="text-primary underline">Terms</span> &{" "}
+                <span className="text-primary underline">Privacy Policy</span>
+              </span>
+            </label>
+
+            <input type="hidden" {...register("role")} />
+
+            <Button className="w-full" type="submit" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Creating account...
+                </>
+              ) : (
+                "Create Account"
+              )}
+            </Button>
+          </form>
         </div>
-
-        <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email</label>
-          <input
-            id="email"
-            type="email"
-            {...register('email')}
-            className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-background ${errors.email ? 'border-destructive focus-visible:ring-destructive' : 'border-input focus-visible:ring-ring'}`}
-            placeholder="m@example.com"
-          />
-          {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
-        </div>
-
-        <div className="space-y-2">
-          <label htmlFor="password" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Password</label>
-          <input
-            id="password"
-            type="password"
-            {...register('password')}
-            className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-background ${errors.password ? 'border-destructive focus-visible:ring-destructive' : 'border-input focus-visible:ring-ring'}`}
-            placeholder="••••••••"
-          />
-          {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
-        </div>
-
-        <div className="space-y-2">
-          <label htmlFor="confirmPassword" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Confirm Password</label>
-          <input
-            id="confirmPassword"
-            type="password"
-            {...register('confirmPassword')}
-            className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-background ${errors.confirmPassword ? 'border-destructive focus-visible:ring-destructive' : 'border-input focus-visible:ring-ring'}`}
-            placeholder="••••••••"
-          />
-          {errors.confirmPassword && <p className="text-xs text-destructive">{errors.confirmPassword.message}</p>}
-        </div>
-
-        {/* Hidden role input not strictly necessary with explicit defaultValues, but good for form submissions if using native form actions (not here) */}
-        <input type="hidden" {...register('role')} />
-
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Creating account...
-            </>
-          ) : 'Create Account'}
-        </Button>
-      </form>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-const Register = (props: any) => {
-  return (
-    <Suspense fallback={<div className="flex items-center justify-center p-8">Loading...</div>}>
-      <RegisterForm />
-    </Suspense>
-  )
-}
+// ---------------- Suspense Wrapper ----------------
+const Register = () => (
+  <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+    <RegisterForm />
+  </Suspense>
+);
 
-export default Register
+export default Register;

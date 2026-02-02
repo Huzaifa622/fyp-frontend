@@ -1,12 +1,11 @@
-"use client"
+"use client";
 
 import { LoginForm } from "@/components/auth/login-form";
 import { Suspense } from "react";
 
 function LoginContent() {
-  const role = "admin";
 
-  return <LoginForm role={role} />;
+  return <LoginForm />;
 }
 
 export default function LoginPage() {

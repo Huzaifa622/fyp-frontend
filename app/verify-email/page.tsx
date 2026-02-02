@@ -18,7 +18,7 @@ const VerifyEmailContent = () => {
   })
 
   const handleContinue = () => {
-    router.push(`/onboarding/${role}`)
+    router.push(`/login`)
   }
 
   if (token) {
@@ -38,7 +38,7 @@ const VerifyEmailContent = () => {
               <p className="text-muted-foreground">
                 {(error as any)?.data?.message || 'Invalid or expired token. Please try again.'}
               </p>
-              <Button onClick={() => router.push('/register')} className="w-full">
+              <Button onClick={() => router.back()} className="w-full">
                 Go back to Register
               </Button>
             </div>
@@ -48,7 +48,7 @@ const VerifyEmailContent = () => {
               <h1 className="text-2xl font-bold tracking-tight text-foreground">Email Verified!</h1>
               <p className="text-muted-foreground">Your email has been successfully verified. You can now continue with onboarding.</p>
               <Button onClick={handleContinue} className="w-full">
-                Continue to Onboarding
+                Continue to Login
               </Button>
             </div>
           )}
@@ -76,11 +76,11 @@ const VerifyEmailContent = () => {
             Click the link in the email to verify your account and continue to onboarding.
           </p>
           
-          <div className="pt-4">
+          {/* <div className="pt-4">
             <Button variant="outline" className="w-full" onClick={() => alert("Resent email!")}>
               Resend Email
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

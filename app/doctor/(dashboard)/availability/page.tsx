@@ -31,7 +31,7 @@ import {
 } from "@/components/ui/dialog";
 import { format, parseISO } from "date-fns";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 
 // TimeRange Schema
 const timeRangeSchema = z.object({
@@ -164,7 +164,7 @@ export default function AvailabilityPage() {
       refetch();
       toast.success("Availability added successfully");
     } catch (err: any) {
-      console.error("Failed to add time slots:", err);
+      toast(err?.data?.message || "Failed to add availability. Please try again.");
       setError(
         err?.data?.message || "Failed to add availability. Please try again.",
       );

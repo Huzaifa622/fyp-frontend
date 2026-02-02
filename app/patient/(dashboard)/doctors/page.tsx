@@ -29,13 +29,15 @@ export default function DoctorsList() {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [selectedSlotId, setSelectedSlotId] = useState<number | null>(null);
 
-  const { data: doctors, isLoading } = useGetAllDoctorsQuery({
+  const { data: doctors, isLoading  } = useGetAllDoctorsQuery({
     search: searchTerm || "",
   });
 
-  const { data: selectedDoctor, isLoading: isDoctorLoading } =
+  const { data: selectedDoctor, isLoading: isDoctorLoading , refetch } =
     useGetDoctorByIdQuery(selectedDoctorId!, { skip: !selectedDoctorId });
 
+
+    
   const [bookAppointment, { isLoading: isBooking }] =
     useBookAppointmentMutation();
 
@@ -48,6 +50,7 @@ export default function DoctorsList() {
         slotId: selectedSlotId,
       }).unwrap();
       toast.success("Appointment booked successfully!");
+      refetch()
       setIsBookingModalOpen(false);
       setSelectedSlotId(null);
     } catch (err: any) {
@@ -68,7 +71,7 @@ export default function DoctorsList() {
   const groupedSlots = selectedDoctor?.timeSlots
     ? groupSlotsByDate(selectedDoctor.timeSlots.filter((s: any) => !s.isBooked))
     : {};
-
+console.log(groupedSlots)
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">

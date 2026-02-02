@@ -39,6 +39,22 @@ export const authApi = createApi({
     getProfile: builder.query<User, void>({
       query: () => "users/profile",
     }),
+    logout: builder.mutation<void, void>({
+  query: () => ({
+    url: "users/logout",
+    method: "POST",
+  }),
+  async onQueryStarted(_, { queryFulfilled }) {
+    try {
+      await queryFulfilled
+    } catch (err) {
+      console.error(err)
+    } finally {
+      localStorage.removeItem("accessToken");
+     window.location.href = "/login";
+    }
+  },
+}),
     getUserById: builder.query<User, number>({
       query: (id) => `users/${id}`,
     }),
@@ -51,4 +67,5 @@ export const {
   useLoginMutation,
   useGetProfileQuery,
   useGetUserByIdQuery,
+  useLogoutMutation,
 } = authApi;

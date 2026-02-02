@@ -2,14 +2,15 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Calendar, Clock, LayoutDashboard, LogOut } from 'lucide-react'
 import { TopBar } from '@/components/dashboard/top-bar'
 import { useGetProfileQuery } from '@/services/doctor'
 
 export default function DoctorLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const { data: user, isLoading } = useGetProfileQuery()
+  const router = useRouter()
+  const { data: user, isLoading , error } = useGetProfileQuery()
   
   const navItems = [
     { href: '/doctor/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -17,8 +18,14 @@ export default function DoctorLayout({ children }: { children: React.ReactNode }
     { href: '/doctor/availability', label: 'Add Availability', icon: Clock },
   ]
 
+
+
   const isActive = (href: string) => pathname === href
 
+
+  if(user && !user?.isVerified){
+    router.push('/doctor/pending')
+  }
   return (
     <div className="flex min-h-screen bg-background">
       {/* Sidebar */}

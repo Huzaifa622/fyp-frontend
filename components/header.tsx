@@ -112,12 +112,12 @@ export function Header() {
               Contact
             </Link>
             <div className="flex flex-col gap-2 pt-4">
-              <Link href="/doctor/login" className="w-full">
+              <Link href="/login" className="w-full">
                 <Button variant="ghost" size="sm" className="w-full text-foreground justify-start">
                   Doctor Login
                 </Button>
               </Link>
-              <Link href="/patient/login" className="w-full">
+              <Link href="/login" className="w-full">
                 <Button variant="ghost" size="sm" className="w-full text-foreground justify-start">
                   Patient Login
                 </Button>

@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Loader2, LogOut, User } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useLogoutMutation } from "@/services/auth";
 
 interface TopBarProps {
   user: any;
@@ -21,7 +22,9 @@ interface TopBarProps {
 
 export function TopBar({ user, isLoading }: TopBarProps) {
   const router = useRouter();
-  const handleLogout = () => {
+  const [logout] = useLogoutMutation();
+  const handleLogout = async () => {
+    await logout();
     localStorage.removeItem("accessToken");
     const pathname = window.location.pathname;
     let redirectPath = "/login";

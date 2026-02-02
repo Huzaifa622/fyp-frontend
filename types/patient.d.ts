@@ -21,6 +21,7 @@ export interface AIReport {
   description: string;
   imagePaths: string[];
   confidenceScore: string;
+  diseaseName: string;
   createdAt: string;
 }
 

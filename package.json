@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "eslint ."
@@ -54,6 +54,7 @@
     "react-day-picker": "9.8.0",
     "react-dom": "19.2.0",
     "react-hook-form": "^7.60.0",
+    "react-hot-toast": "^2.6.0",
     "react-redux": "^9.2.0",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.4",

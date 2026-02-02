@@ -226,7 +226,7 @@ export default function AIReportPage() {
                     </div>
 
                     <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">
-                      General Skin Condition Analysis
+                      {report.diseaseName}
                     </h3>
 
                     <p className="text-sm text-muted-foreground line-clamp-1">
