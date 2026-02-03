@@ -175,7 +175,7 @@ export default function PendingDoctors() {
                       </div>
 
                       <div className="flex gap-3 mt-auto">
-                        <Button
+                        {/* <Button
                           variant="outline"
                           className="flex-1 rounded-xl h-11 border-destructive/20 text-destructive hover:bg-destructive hover:text-destructive-foreground transition-all"
                           onClick={() => {
@@ -184,7 +184,7 @@ export default function PendingDoctors() {
                         >
                           <XCircle className="mr-2 h-4 w-4" />
                           Reject
-                        </Button>
+                        </Button> */}
                         <Button
                           className="flex-1 rounded-xl h-11 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] transition-all"
                           onClick={() => {
