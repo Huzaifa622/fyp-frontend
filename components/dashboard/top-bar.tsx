@@ -73,10 +73,13 @@ export function TopBar({ user, isLoading }: TopBarProps) {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                {user.user.role  && 
+                
                 <DropdownMenuItem onClick={() => router.push(`/${user.user.role}/profile`)}>
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </DropdownMenuItem>
+                }
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={handleLogout}
