@@ -30,6 +30,12 @@ export interface UpdateDoctorProfileRequest {
   consultationFee?: number;
   bio?: string;
   clinicAddress?: string;
+  user?: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    avatar?: string;
+  };
 }
 
 export interface CreateTimeSlotRequest {

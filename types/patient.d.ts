@@ -8,7 +8,12 @@ export interface CreatePatientProfileRequest {
 export interface UpdatePatientProfileRequest {
   gender?: string;
   dateOfBirth?: string;
-  phone?: string;
+  user?: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    avatar?: string;
+  };
 }
 
 export interface CreateAIReportRequest {

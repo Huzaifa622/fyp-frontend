@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Calendar, Clock, LayoutDashboard, LogOut } from 'lucide-react'
+import { Calendar, Clock, LayoutDashboard, LogOut, User } from 'lucide-react'
 import { TopBar } from '@/components/dashboard/top-bar'
 import { useGetProfileQuery } from '@/services/doctor'
 
@@ -16,6 +16,7 @@ export default function DoctorLayout({ children }: { children: React.ReactNode }
     { href: '/doctor/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/doctor/appointments', label: 'Upcoming Appointments', icon: Calendar },
     { href: '/doctor/availability', label: 'Add Availability', icon: Clock },
+    { href: '/doctor/profile', label: 'Profile', icon: User },
   ]
 
 

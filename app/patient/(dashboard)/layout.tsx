@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Calendar, Stethoscope, LayoutDashboard, FileText, LogOut } from 'lucide-react'
+import { Calendar, Stethoscope, LayoutDashboard, FileText, LogOut, User } from 'lucide-react'
 import { TopBar } from '@/components/dashboard/top-bar'
 import { useGetProfileQuery } from '@/services/patient'
 
@@ -16,6 +16,7 @@ export default function PatientLayout({ children }: { children: React.ReactNode 
     { href: '/patient/appointments', label: 'Upcoming Appointments', icon: Calendar },
     { href: '/patient/doctors', label: 'Doctors', icon: Stethoscope },
     { href: '/patient/ai-report', label: 'AI Report', icon: FileText },
+    { href: '/patient/profile', label: 'Profile', icon: User },
   ]
 
   const isActive = (href: string) => pathname === href

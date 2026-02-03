@@ -126,7 +126,7 @@ export default function PendingDoctors() {
                         </p>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-6">
+                      <div className="grid grid-cols-1 gap-6">
                         <div className="space-y-2">
                           <h4 className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
                             <Building className="h-3.5 w-3.5" />
@@ -136,20 +136,41 @@ export default function PendingDoctors() {
                             {doctor.clinicAddress || "N/A"}
                           </p>
                         </div>
-                        <div className="space-y-2">
-                          <h4 className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
-                            <GraduationCap className="h-3.5 w-3.5" />
-                            Degree
-                          </h4>
-                          <a
-                            href={doctor?.degreePath}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline group/link"
-                          >
-                            View Document
-                            <ExternalLink className="h-3 w-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                          </a>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <h4 className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
+                              <GraduationCap className="h-3.5 w-3.5" />
+                              Degree
+                            </h4>
+                            <a
+                              href={doctor?.degreePath}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline group/link"
+                            >
+                              View Document
+                              <ExternalLink className="h-3 w-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                            </a>
+                          </div>
+                          <div className="space-y-2">
+                            <h4 className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
+                              <FileText className="h-3.5 w-3.5" />
+                              Certificate
+                            </h4>
+                            {doctor?.certificatePath ? (
+                              <a
+                                href={doctor.certificatePath}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline group/link"
+                              >
+                                View Document
+                                <ExternalLink className="h-3 w-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                              </a>
+                            ) : (
+                              <p className="text-sm text-muted-foreground">Not provided</p>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>

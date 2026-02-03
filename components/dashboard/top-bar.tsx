@@ -29,7 +29,7 @@ export function TopBar({ user, isLoading }: TopBarProps) {
   };
 
   return (
-    <header className="flex h-16 items-center justify-end border-b border-border bg-card px-8">
+    <div className="flex h-16 items-center justify-end border-b border-border bg-card px-8">
       <div className="flex items-center gap-4">
         {isLoading ? (
           <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
@@ -73,7 +73,7 @@ export function TopBar({ user, isLoading }: TopBarProps) {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => router.push("/profile")}>
+                <DropdownMenuItem onClick={() => router.push(`/${user.user.role}/profile`)}>
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </DropdownMenuItem>
@@ -90,6 +90,6 @@ export function TopBar({ user, isLoading }: TopBarProps) {
           </>
         ) : null}
       </div>
-    </header>
+    </div>
   );
 }
